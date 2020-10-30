@@ -46,6 +46,9 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 app.get('/' , (req, res) => {
   res.send('Hello World! my app is working');
 });
+app.get('/my' , (req, res) => {
+    res.send('This is running from my endpoint');
+  });
 //___________________
 //Listener
 //___________________
