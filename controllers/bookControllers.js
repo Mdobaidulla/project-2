@@ -54,7 +54,7 @@ const herbertSchildt= await Author.create({
 const startingOutWithJava = new Book({
     title: 'Starting Out With Java',
     authors: [],
-    image: 'this should be a link',
+    image: 'https://res.cloudinary.com/dpggpg7su/image/upload/v1604089814/books/java_qid4ly.jpg',
 });
 //pushing the authors in book arrays
 startingOutWithJava.authors.push(giladBracha);
@@ -112,5 +112,11 @@ router.post('/', async (req, res) =>{
     res.redirect(`/books/${foundBook.id}`);
   });
 
-
+//DELETE
+router.delete('/:id', async (req, res) =>{
+    let foundBook= await Book.findByIdAndRemove(req.params.id,{
+        
+    });
+    res.redirect('/books');
+})
 module.exports = router;
