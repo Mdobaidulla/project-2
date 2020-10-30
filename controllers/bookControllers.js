@@ -13,11 +13,28 @@ router.get('/', async (req, res)=>{
     } )
 })
 
+//NEW
+//This should show a new form to add a new movie
+router.get('/new', async (req, res) =>{
+    let allAuthors = await Author.find({});
+    res.render('book/new.ejs', {
+        authors: allAuthors,
+    })
+  })
 
+// EDIT
+//This route will retrive all the value from book and author collection and 
+// put on edit from so user will be able to update the value
+router.get('/:id/edit', async (req, res) => {
+    let allAuthors = await Author.find({});
+    let foundBook = await Book.findById(req.params.id).populate('authors');
+    res.render('book/edit.ejs',  {
+        book: foundBook,
+        authors: allAuthors,
 
-
-
-
+    })
+  })
+  
 
 
 //SEED
@@ -68,10 +85,32 @@ router.get('/:id', async (req, res) => {
     res.render('book/show.ejs',  {
         book: foundBook,
         authors: allAuthorsForChecklist
-    })
-})
+    });
+});
 
 
+
+
+//POST
+//This route will add the body in book collection
+router.post('/', async (req, res) =>{
+    console.log(req.body);
+     let book = await Book.create(req.body)
+     res.redirect(`/books`)
+ })
+
+
+
+ //PUT
+ //This route will Allow user to update the author list
+ router.put('/:bookId', async (req, res) => {
+     let foundBook = await Book.findById(req.params.bookId);
+         foundBook.authors=req.body.authors; 
+         foundBook.image= req.body.image;
+         foundBook.title= req.body.title;
+         await Book.update(foundBook);
+    res.redirect(`/books/${foundBook.id}`);
+  });
 
 
 module.exports = router;

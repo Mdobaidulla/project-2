@@ -1,15 +1,15 @@
 <h1> All Books</h1>
+<a href="/books/new">Add New Book</a>
 <ul>
     <% books.forEach(book => { %>
-    <table border="1">
-       <tr>
-           <td>
-            <a href="/books/<%= book.id %>"><%= book.image %></a>
-           </td>
-           <td>
+    <table>
+            <tr>
+            <a href="/books/<%= book.id %>"><img src="<%= book.image %>" style="height:250px;width:170px;"/></a>
+           </tr><br>
+            <tr>
             <a href="/books/<%= book.id %>"><%= book.title %></a>
-           </td>
-       </tr>
+           </tr><br><br><br>
+       
     </table>
 
     <% }) %>

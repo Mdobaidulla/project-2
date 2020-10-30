@@ -1,0 +1,28 @@
+<div class="container">
+    <h1> Add New Book</h1>
+    <form action="/books" method="POST">
+        <div class="form-group">
+          <label for="title">Book Title</label>
+          <input type="text" class="form-control" id="title" name="title" />
+          <br><br>
+            <label for="image">Upload Image</label>
+            <input type="text" class="form-control" id="image" name="image" />
+         </div>
+        <% authors.forEach(author => { %>
+            <div>
+                <label for="<%= author.name%>">
+                  <input type="checkbox"
+                   id="<%= author.name %>"
+                    name="authors" 
+                    value="<%= author.id %>"/>
+                  <span><%= author.name %> </span>
+                </label>
+              </div>
+    
+        <% })%>
+       
+        <br>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    
+    </div>

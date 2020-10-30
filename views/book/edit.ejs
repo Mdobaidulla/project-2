@@ -1,0 +1,37 @@
+<a href="/books">Home Page</a>
+<a href="/books/<%= book.id%> ">Back </a>
+
+<div class="container">
+    <h1> Update A Book</h1>
+    <img src="<%=book.image%>" style="height:450px;width:300px;"><br>
+    <form action="/books/<%=book._id%>?_method=PUT" method="POST">
+        <div class="form-group">
+          <label for="title">Book Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="<%= book.title %>" />
+          <br><br>
+            <label for="image">Upload Image</label>
+            <input type="text" class="form-control" id="image" name="image" value="<%= book.image %>" />
+         </div>
+        <% authors.forEach(author => { %>
+            <div>
+                <label for="<%= author.name%>">
+                  <input type="checkbox"
+                   id="<%= author.name %>"
+                    name="authors" 
+                    value="<%= author.id %>" 
+                    <% book.authors.forEach(bAuthor => { %>
+                        <% if(bAuthor.name === author.name){ %>
+                            checked
+                          <% } %>
+                    <% }) %>
+                    />
+                  <span><%= author.name %> </span>
+                </label>
+              </div>
+        <% })%>
+      
+        <br>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    
+    </div>
