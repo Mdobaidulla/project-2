@@ -1,0 +1,25 @@
+<a href="/books">Home Page</a>
+<div class="container">
+        <h1> <%= book.title %>'s Details Page </h1>
+        <h4>Add Authors</h4>
+        <form action="/books/<%= book.id %>/authors?_method=PUT" method="POST">
+        <% authors.forEach(author => { %>
+            <div>
+                <label for="<%= author.name%>">
+                <input type="checkbox"
+                id="<%= author.name %>"
+                    name="authors" 
+                    value="<%= author.id %>"/>
+                <span><%= author.name %> </span>
+                </label>
+            </div>
+        <% }) %>
+        <br>
+        <input type="submit" value="Add Author" />
+        </form>
+        <h4>Authors</h4>
+        <ul>
+        <% book.authors.forEach(author => { %>
+        <li><%= author.name %> <% }) %></li>
+        </ul>
+    </div>

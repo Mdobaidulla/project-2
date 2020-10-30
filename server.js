@@ -6,11 +6,17 @@ const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
+
+
 //___________________
 //Port
 //___________________
 // Allow use of Heroku's port or your own local port, depending on the environment
 const PORT = process.env.PORT || 3000;
+
+
+
+
 //___________________
 //Database
 //___________________
@@ -23,12 +29,20 @@ mongoose.connect(MONGODB_URI ,  {
     useFindAndModify: false,
     useCreateIndex: true,
   });
+
+
+
 // Error / success
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
 db.on('disconnected', () => console.log('mongo disconnected'));
 // open the connection to mongo
 db.on('open' , ()=>{});
+
+
+
+
+
 //___________________
 //Middleware
 //___________________
@@ -39,16 +53,26 @@ app.use(express.urlencoded({ extended: false }));// extended: false - does not a
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
+
+
+
+
+//CONTROLLERS
+const bookController = require('./controllers/bookControllers');
+app.use('/books',bookController);
+
+
+
+
 //___________________
-// Routes
+// ROUTES
 //___________________
 //localhost:3000
 app.get('/' , (req, res) => {
-  res.send('Hello World! my app is working');
+  res.send('Send /books after the url');
 });
-app.get('/my' , (req, res) => {
-    res.send('This is running from my endpoint');
-  });
+
+
 //___________________
 //Listener
 //___________________
