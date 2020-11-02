@@ -123,6 +123,15 @@ router.post('/',upload.single('image'), async (req, res) =>{
      req.body.image=finalImg;
      //**********image upload */
     let book = await Book.create(req.body);
+    //**********Unlinking Image */
+    let imagePath=req.body.path;
+    fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+      console.log("The file is removed");
+      })
      res.redirect(`/books`)
  })
 
