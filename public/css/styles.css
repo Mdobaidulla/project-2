@@ -1,10 +1,16 @@
 body{
+  
     margin: 0px auto;
     max-width:1240px;
     text-align:center;
     min-height: 100vh;
     display:flex;
     flex-direction: column;
+}
+section{
+    flex-grow: 1;
+    background-color:#EAEDED;
+
 }
 header{
     background-color:gray;

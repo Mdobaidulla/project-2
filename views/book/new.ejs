@@ -1,32 +1,41 @@
 <div class="container">
     <h1> Add New Book</h1>
-    <form action="/books" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="title">Book Title</label>
-          <input type="text" class="form-control" id="title" name="title" />
-        <br>
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Book Image</label>
-          <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1">
-        </div>
-          
-        </div>
-        <h3>Authors Name</h3>
-        <% authors.forEach(author => { %>
-            <div>
-                <label for="<%= author.name%>">
-                  <input type="checkbox"
-                   id="<%= author.name %>"
-                    name="authors" 
-                    value="<%= author.id %>"/>
-                  <span><%= author.name %> </span>
-                </label>
-              </div>
-    
-        <% })%>
-       
-        <br>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </form>
 
+<form action="/books" method="POST" enctype="multipart/form-data">
+<div class="container-fluid">     
+  <div class="row text-left">
+    <div class="col-sm-6" style="background-color:#95A5A6;">
+      <br>
+      <label for="title">Book Title</label>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Book Title...." /><br>
+      <label for="price">Book Price</label>
+      <input type="text" class="form-control" id="price" name="price" placeholder="Book Price...." /><br>
+      <label for="image">Book Image</label>
+       <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1">
+       <br>
+          
     </div>
+    <div class="col-sm-6" style="background-color:#EAECEE">
+      <h4>Select Authors</h4>
+      <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 260px; max-height: 250px;">
+      <% authors.forEach(author => { %>
+        <div>
+            <label for="<%= author.name%>">
+              <input type="checkbox"
+               id="<%= author.name %>"
+                name="authors" 
+                value="<%= author.id %>"/>
+              <span><%= author.name %> </span>
+            </label>
+        </div>
+
+    <% })%>
+
+      </div><br><br>
+      <button type="submit" class="btn btn-primary btn-block">Add</button>
+    </div>
+    
+  </div>
+</div>
+</form>
+<br><br><br>
