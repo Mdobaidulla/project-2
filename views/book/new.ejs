@@ -4,10 +4,14 @@
         <div class="form-group">
           <label for="title">Book Title</label>
           <input type="text" class="form-control" id="title" name="title" />
-          <br><br>
-            <label for="image">Upload Image</label>
-            <input type="file" class="form-control" id="image" name="image" />
-         </div>
+        <br>
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Book Image</label>
+          <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1">
+        </div>
+          
+        </div>
+        <h3>Authors Name</h3>
         <% authors.forEach(author => { %>
             <div>
                 <label for="<%= author.name%>">
@@ -24,5 +28,5 @@
         <br>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
-    
+
     </div>

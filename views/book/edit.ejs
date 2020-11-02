@@ -3,7 +3,8 @@
 
 <div class="container">
     <h1> Update A Book</h1>
-    <img src="<%=book.image%>" style="height:450px;width:300px;"><br>
+    <img src="data:image/<%=book.image.contentType%>;base64, 
+    <%=book.image.data.toString('base64')%>" style="height:300px;width:200px;"/>
     <form action="/books/<%=book._id%>?_method=PUT" method="POST">
         <div class="form-group">
           <label for="title">Book Title</label>
@@ -33,5 +34,7 @@
         <br>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
-    
-    </div>
+  
+</div>
+
+   

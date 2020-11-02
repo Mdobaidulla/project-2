@@ -30,6 +30,7 @@ let upload = multer({ storage: storage });
 router.get('/', async (req, res)=>{
     let allBooks = await Book.find({});
     res.render('./book/index.ejs', {
+        
         books : allBooks
     } )
 })
@@ -123,8 +124,8 @@ router.post('/',upload.single('image'), async (req, res) =>{
      req.body.image=finalImg;
      //**********image upload */
     let book = await Book.create(req.body);
-    //**********Unlinking Image */
-    let imagePath=req.body.path;
+    //**********The Uploaded file will be removed from Upload folder
+    //after adding the binary image in database Image */
     fs.unlink(req.file.path, (err) => {
         if (err) {
           console.error(err)
@@ -132,6 +133,7 @@ router.post('/',upload.single('image'), async (req, res) =>{
         }
       console.log("The file is removed");
       })
+      //Re-directing to the Home page
      res.redirect(`/books`)
  })
 

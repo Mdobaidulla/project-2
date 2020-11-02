@@ -1,16 +1,33 @@
-<a href="/books">Home Page</a>
 
-<a href="/books/<%= book.id %>/edit ">Edit</a>
-<form action="/books/<%=book.id %>?_method=DELETE" method="POST">
-    <button>Delete</button>
-</form>
-<div class="container">
-        <h1> <%= book.title %>'s Details Page </h1>
-        <img src="<%= book.image %>" style="height:500px;width:400px;"/>
-        <h3><%=book.title%></h3>
-        <h3>Authors</h3>
-        <ul>
-        <% book.authors.forEach(author => { %>
-        <li><%= author.name %> <% }) %></li>
-        </ul>
+
+
+ <h1> <%= book.title %>'s Details Page </h1>
+    <div class="row">
+      <div class="col py- px-lg-5 border bg-light8">
+        <img src="data:image/<%=book.image.contentType%>;base64, 
+        <%=book.image.data.toString('base64')%>" style="height:400px;width:350px;"/>
+
+      </div>
+
+      <div class="col py-3 px-lg-6 border bg-light text-left">
+          <h5>Book Title</h5>
+          <li><%= book.title %></li><br>
+            <h5>Authors</h5>
+            <% book.authors.forEach(author => { %>
+                <li><%= author.name %> </li><% }) %><br>
+            <h5>Price In USA</h5>
+              <li>Price: $61.00</li>
+<br><br>
+              <h5>Shipping</h5>
+              <li>Free Shipping for any order over $35</li>
+       </div>
+       <div class="col py-3 px-lg-6 border bg-light text-left">
+        <a href="/books" class="btn btn-primary btn-block" role="button">Home Page</a><br>
+        <a href="/books/<%= book.id %>/edit " class="btn btn-primary btn-block" role="button">Edit</a><br>
+        <form action="/books/<%=book.id %>?_method=DELETE" method="POST">
+            <input type="submit" class="btn btn-primary btn-block" role="button" value="Delete">
+        </form>
+      </div>
+      
     </div>
+    <br><br>
