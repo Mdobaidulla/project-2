@@ -1,6 +1,27 @@
 const router = require('express').Router();
 const Book = require('../models/book');
 const Author= require('../models/author');
+//******image Upload******** */
+let fs = require('fs'); 
+let path = require('path'); 
+require('dotenv/config');
+let multer = require('multer'); 
+
+let storage = multer.diskStorage({ 
+    destination: (req, file, cb) => { 
+        cb(null, 'uploads') 
+    }, 
+    filename: (req, file, cb) => { 
+        cb(null, file.fieldname + '-' + Date.now()) 
+    } 
+}); 
+let upload = multer({ storage: storage }); 
+
+//**********Image Upload */
+
+
+
+
 
 
 
@@ -12,9 +33,8 @@ router.get('/', async (req, res)=>{
         books : allBooks
     } )
 })
-
 //NEW
-//This should show a new form to add a new movie
+//This should show a new form to add a new Book
 router.get('/new', async (req, res) =>{
     let allAuthors = await Author.find({});
     res.render('book/new.ejs', {
@@ -31,7 +51,6 @@ router.get('/:id/edit', async (req, res) => {
     res.render('book/edit.ejs',  {
         book: foundBook,
         authors: allAuthors,
-
     })
   })
   
@@ -93,9 +112,18 @@ router.get('/:id', async (req, res) => {
 
 //POST
 //This route will add the body in book collection
-router.post('/', async (req, res) =>{
-    console.log(req.body);
-     let book = await Book.create(req.body)
+router.post('/',upload.single('image'), async (req, res) =>{
+    //*************Image upload */
+    var img = fs.readFileSync(req.file.path);
+    var encode_image = img.toString('base64');
+    var finalImg = {
+        contentType: req.file.mimetype,
+        data:Buffer.from(encode_image, 'base64'), 
+        path: req.file.path,
+     };
+     req.body.image=finalImg;
+     //**********image upload */
+    let book = await Book.create(req.body);
      res.redirect(`/books`)
  })
 

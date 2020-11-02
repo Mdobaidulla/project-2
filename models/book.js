@@ -10,9 +10,10 @@ const bookSchema = new mongoose.Schema({
         ref: 'Author',
     },
    ],
-    image: {
-        type: String,
-        required: true,
-    }
+    image: { 
+        data: Buffer, 
+        contentType: String,
+        path: String, 
+    } 
 });
 module.exports = mongoose.model('Book', bookSchema);
