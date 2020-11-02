@@ -4,7 +4,7 @@ const Author= require('../models/author');
 //******image Upload******** */
 let fs = require('fs'); 
 let path = require('path'); 
-require('dotenv/config');
+//require('dotenv/config');
 let multer = require('multer'); 
 
 let storage = multer.diskStorage({ 
@@ -106,7 +106,6 @@ router.get('/:id', async (req, res) => {
         authors: allAuthorsForChecklist
     });
 });
-
 
 
 
