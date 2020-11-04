@@ -2,7 +2,6 @@
 
 
  <h1> <%= book.title %>'s Details Page </h1>
-
         <div class="container-fluid">     
           <div class="row text-left">
             <div class="col-sm-4" style="background-color:#95A5A6;">
@@ -18,7 +17,7 @@
                   <% book.authors.forEach(author => { %>
                       <li><%= author.name %> </li><% }) %><br>
                   <h5>Price In USA</h5>
-                    <li>Price: $61.00</li>
+                    <li>Price: $<%= book.price %> </li>
                     <br><br>
                     <h5>Shipping</h5>
                 <li>Free Shipping for any order over $35</li>
@@ -27,11 +26,17 @@
              <div class="col-sm-4" style="background-color:#95A5A6">
                 <br>
                 <h4> All The Buttons</h4>
+                 Price: $<%= book.price %> &#xd7; <input type="number" min="0" name="qty" value="1" style="width:50px;"><br><br>
+                    <button class="btn btn-primary btn-block"> Add </button>
+                     <br>
                      <a href="/books" class="btn btn-primary btn-block" role="button">Home Page</a><br>
+                     <% if (currentUser) { %>
                       <a href="/books/<%= book.id %>/edit " class="btn btn-primary btn-block" role="button">Edit</a><br>
                       <form action="/books/<%= book.id %>?_method=DELETE" method="POST">
-                      <input type="submit" class="btn btn-primary btn-block" role="button" value="Delete">
-                </form>
+                         <input type="submit" class="btn btn-primary btn-block" role="button" value="Delete">
+                      </form>
+                     <% } %>
+                    
               </div>
           </div>
         </div>

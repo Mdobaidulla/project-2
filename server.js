@@ -1,12 +1,14 @@
 //___________________
 //Dependencies
 //___________________
+require('dotenv').config();
 const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const expressLayouts = require('express-ejs-layouts');
-const app = express ();
+const session = require('express-session')
 
+const app = express ();
 const db = mongoose.connection;
 
 
@@ -45,6 +47,13 @@ db.on('open' , ()=>{});
 
 //___________________
 //Middleware
+app.use(
+    session({
+      secret: process.env.SECRET, //a random string do not copy this value or your stuff will get hacked
+      resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+      saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+    })
+  )
 //___________________
 //use public folder for static assets
 app.set('view engine', 'ejs');
@@ -67,14 +76,19 @@ app.use('/books',bookController);
 const authorControllers = require('./controllers/authorControllers');
 app.use('/authors',authorControllers);
 
-
+//For User route
+const userControllers = require('./controllers/userControllers');
+app.use('/users',userControllers);
+//Session Route
+const sessionsController = require('./controllers/sessions_controller')
+app.use('/sessions', sessionsController)
 
 //___________________
 // ROUTES
 //___________________
 //localhost:3000
 app.get('/' , (req, res) => {
-  res.send('Send /books after the url');
+  res.redirect('/books')
 });
 //___________________
 //Listener

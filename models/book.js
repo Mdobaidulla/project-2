@@ -14,6 +14,11 @@ const bookSchema = new mongoose.Schema({
         data: Buffer, 
         contentType: String,
         path: String, 
-    } 
-});
+    } ,
+    price :{
+        type: Number,
+        required:true,
+    },
+}, 
+{ timestamps: true });
 module.exports = mongoose.model('Book', bookSchema);

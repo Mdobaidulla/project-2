@@ -17,13 +17,40 @@
         <li class="nav-item active">
           <a class="nav-link " href="/books">All Books</a>
         </li>
+        <% if (currentUser) { %>
         <li class="nav-item">
           <a class="nav-link" href="/books/new">New Book</a>
         </li>
+        <% }%>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+       <% if (currentUser) { %>
+       <!-- For destroy the active session -->
+        <form id="myform" action="/sessions/?_method=DELETE" method="POST">
+          <li class="nav-item">
+              <a href="#" class="nav-link"  onclick="document.getElementById('myform').submit()">Logout</a>
+          </li>
+        </form>
+        <li class="nav-item">
+          <a href="#" class="nav-link ">Welcome <%= currentUser.name %></a>
+        </li>
+       <% }else{ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/sessions/new">Login</a>
+        </li>
+       <% } %> 
+       
+       
       </ul>
+      
+     
+      
+      
       <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-sm  btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form> -->
+  
     </div>
   </nav>

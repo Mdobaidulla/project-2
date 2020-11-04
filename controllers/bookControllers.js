@@ -23,15 +23,25 @@ let upload = multer({ storage: storage });
 
 
 
+//Verifying authenticated session
+const isAuthenticated = (req, res, next) => {
+    if (req.session.currentUser) {
+      return next()
+    } else {
+      res.redirect('/sessions/new')
+    }
+  }
 
 
 
-//GET
+
+
+//GET INDEX
 router.get('/', async (req, res)=>{
     let allBooks = await Book.find({});
     res.render('./book/index.ejs', {
-        
-        books : allBooks
+        books : allBooks,
+        currentUser: req.session.currentUser
     } )
 })
 //NEW
@@ -40,6 +50,7 @@ router.get('/new', async (req, res) =>{
     let allAuthors = await Author.find({});
     res.render('book/new.ejs', {
         authors: allAuthors,
+        currentUser: req.session.currentUser
     })
   })
 
@@ -52,6 +63,7 @@ router.get('/:id/edit', async (req, res) => {
     res.render('book/edit.ejs',  {
         book: foundBook,
         authors: allAuthors,
+        currentUser: req.session.currentUser
     })
   })
   
@@ -74,6 +86,7 @@ const herbertSchildt= await Author.create({
 const startingOutWithJava = new Book({
     title: 'Starting Out With Java',
     authors: [],
+    price:45,
     image: 'https://res.cloudinary.com/dpggpg7su/image/upload/v1604089814/books/java_qid4ly.jpg',
 });
 //pushing the authors in book arrays
@@ -104,7 +117,8 @@ router.get('/:id', async (req, res) => {
       });
     res.render('book/show.ejs',  {
         book: foundBook,
-        authors: allAuthorsForChecklist
+        authors: allAuthorsForChecklist,
+        currentUser: req.session.currentUser
     });
 });
 
