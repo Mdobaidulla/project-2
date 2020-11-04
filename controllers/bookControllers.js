@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Book = require('../models/book');
 const Author= require('../models/author');
+const cart = require("../models/cart.js");
 //******image Upload******** */
 let fs = require('fs'); 
 let path = require('path'); 
@@ -41,7 +42,8 @@ router.get('/', async (req, res)=>{
     let allBooks = await Book.find({});
     res.render('./book/index.ejs', {
         books : allBooks,
-        currentUser: req.session.currentUser
+        currentUser: req.session.currentUser,
+        carts: cart,
     } )
 })
 //NEW

@@ -1,4 +1,23 @@
-<h1> All Books</h1>
+<div class="row">
+  <h3 class="col-sm-10"> All Books </h3>
+  
+  <% 
+    if(currentUser){
+
+    }else{
+  if(carts.length>0){ %> 
+  <a href="/carts" class='btn btn-dark pull-right fa fa-shopping-cart col-sm-1' style="font-size:38px"> 
+    <%= carts.length %>
+  </a> 
+  <%}else{%>
+    <a href="#" class='btn btn-dark pull-right fa fa-shopping-cart col-sm-1' style="font-size:38px"> 
+      <%= carts.length %>
+    </a> 
+    <%}
+  }
+    %>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -18,29 +37,38 @@
                             <a href="/books/<%= book.id %>"><%= book.title %></a><br>
                             $<%= book.price %> 
                         </div>
-                        <p class="btn w-100 px-2 text-center mx-auto">
+                      
                         <!-- Need to add Button -->
-                        <button>Add</button>
+                        <form action="/carts" method="POST">
+                            <input type="hidden" name="bookid" id="bookid" value="<%=book.id%>">
+                            <input type="hidden" name="quantity" id="quantity" value="1">
+                          <button>Add to cart</button>
+                        </form>
                         
                         </div>
                     </div>
                 <% } %>
        <% }else{ %>
+        
            <div class="col-md-3 mt-3 mt-sm-3 card-container  my-box">
     
               <div class="card text-center product p-2 pt-4 border-0 h-100 rounded-0">
-               
+              
                 <a href="/books/<%= book.id %>"> <img  class="img-responsive" src="data:image/<%=book.image.contentType%>;base64, 
                     <%=book.image.data.toString('base64')%>" style="height:280px;width:210px;"/></a>
               <div class="card-body p-2 py-0 h-xs-440p">
                 <a href="/books/<%= book.id %>"><%= book.title %></a>
                 $<%= book.price %> 
              </div>
-             <p class="btn w-100 px-2 text-center mx-auto">
               <!-- Need to add Button -->
-              <button>Add</button>
+              <form action="/carts" method="POST">
+                <input type="hidden" name="bookid" id="bookid" value="<%=book.id%>">
+                <input type="hidden" name="quantity" id="quantity" value="1">
+              <button>Add to cart</button>
+            </form>
             </div>
         </div>
+    
         <% } %>  
    <% }) %>
 </div>

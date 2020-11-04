@@ -83,6 +83,10 @@ app.use('/users',userControllers);
 const sessionsController = require('./controllers/sessions_controller')
 app.use('/sessions', sessionsController)
 
+//orders Route
+const cartController = require('./controllers/cartControllers')
+app.use('/carts', cartController)
+
 //___________________
 // ROUTES
 //___________________
