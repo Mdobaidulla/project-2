@@ -1,11 +1,20 @@
-<a href="/books">Home Page</a>
-<a href="/books/<%= book.id%> ">Back </a>
 
-<div class="container">
+
+
     <h1> Update A Book</h1>
-    <img src="data:image/<%=book.image.contentType%>;base64, 
-    <%=book.image.data.toString('base64')%>" style="height:300px;width:200px;"/>
+
+ <div class="container-fluid">     
+   <div class="row text-left">
+        <!-- Left panel -->
+     <div class="col-sm-4" style="background-color:#95A5A6;">
+            <img src="data:image/<%=book.image.contentType%>;base64, 
+    <%=book.image.data.toString('base64')%>" class="col-md-auto"/>
+    </div>
+    <div class="col-sm-4" style="background-color:#BFC9CA;"> 
     <form action="/books/<%=book._id%>?_method=PUT" method="POST">
+
+      <!-- Middle panel -->
+      
         <div class="form-group">
           <label for="title">Book Title</label>
           <input type="text" class="form-control" id="title" name="title" value="<%= book.title %>" />
@@ -30,15 +39,13 @@
                 </label>
               </div>
         <% })%>
-      
+            </div>
+    <div class="col-sm-4" style="background-color:#95A5A6;">
         <br>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <a href="/books" class="btn btn-primary btn-block">Home Page</a> <br>
+        <a href="/books/<%= book.id%> " class="btn btn-primary btn-block">Previous</a><br>
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+        </div>
       </form>
-      This is the line need to be here
-      <div class="row">
-        <div class="center-block">First Div</div>
-        <div class="center-block">Second DIV </div>
       </div>
-</div>
-
-   
+   </div>

@@ -35,8 +35,6 @@ const isAuthenticated = (req, res, next) => {
 
 
 
-
-
 //GET INDEX
 router.get('/', async (req, res)=>{
     let allBooks = await Book.find({});
