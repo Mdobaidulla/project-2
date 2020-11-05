@@ -25,7 +25,7 @@
 
         <!-- Does the user is logged in -->
         <% if (currentUser) { %>
-                  <!-- if yes, what are the product that user has -->
+                 
                     <% if (currentUser._id == book.userid) { %>
                     <div class="col-md-3 mt-3 mt-sm-3 card-container  my-box">
                         
@@ -37,14 +37,12 @@
                             <a href="/books/<%= book.id %>"><%= book.title %></a><br>
                             $<%= book.price %> 
                         </div>
-                      
-                        <!-- Need to add Button -->
                         <form action="/carts" method="POST">
                             <input type="hidden" name="bookid" id="bookid" value="<%=book.id%>">
                             <input type="hidden" name="quantity" id="quantity" value="1">
-                          <button>Add to cart</button>
+                            <input type="hidden" name="price" id="price" value="<%=book.price%>">
+                          <button class="bnt bg-dark text-white col-sm-10 p-1">Add to cart</button>
                         </form>
-                        
                         </div>
                     </div>
                 <% } %>
@@ -60,11 +58,11 @@
                 <a href="/books/<%= book.id %>"><%= book.title %></a>
                 $<%= book.price %> 
              </div>
-              <!-- Need to add Button -->
               <form action="/carts" method="POST">
                 <input type="hidden" name="bookid" id="bookid" value="<%=book.id%>">
                 <input type="hidden" name="quantity" id="quantity" value="1">
-              <button>Add to cart</button>
+                <input type="hidden" name="price" id="price" value="<%=book.price%>">
+              <button class="bnt bg-dark text-white col-sm-10 p-1">Add to cart</button>
             </form>
             </div>
         </div>

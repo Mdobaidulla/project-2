@@ -31,7 +31,7 @@
                     <%= book.title %>
                 </td>
                 <td class="col-sm-3"> 
-                    $<%= book.price %> * <%= cart.quantity %>
+                    $<%= book.price %> &times; <%= cart.quantity %>
                 </td>
                 <td class="col-sm-2"> 
                     $<%= book.price * cart.quantity%>
@@ -46,5 +46,39 @@
         <%}%>
     <%});%> 
 <%});%> 
+
 </tbody>
+</table>
+<% let numberOfItem =0;
+let totalPrice =0;
+%>
+
+<% books.forEach(book => {%>
+    <% carts.forEach((cart, index )=> {%>
+        <% if(book.id == cart.bookid) {%> 
+           <% numberOfItem += cart.quantity*1 %>
+           <% totalPrice += book.price*1 %>
+        <%}%>
+    <%});%> 
+<%});%> 
+<table class="table">
+    <tbody>
+        
+        <tr class="d-flex">
+            <td class="col-sm-5"></td>
+            <td class="col-sm-3">
+            Items: <%= numberOfItem%>
+            </td>
+            <td class="col-sm-2">
+               Total: $<%= totalPrice%>
+            </td>
+            <td class="col-sm-2">
+            
+                <form action="/orders"  method="POST">
+                
+                   <button class="btn bg-primary text-white">Checkout</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
 </table>

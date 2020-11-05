@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
+
 const orderSchema = new mongoose.Schema({
-    products:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-      },
-    ],
-    quantity: {
-        type: Number,
-        required: true,
-    },
+    order:[
+        {
+        bookid: String,
+        quantity: Number,
+        price: Number,
+        }
+    ]
    },
    {
        timestamps: true
    });
-   
 module.exports = mongoose.model("Order", orderSchema);

@@ -9,6 +9,7 @@ router.get('/new', async (req, res) =>{
     let allAuthors = await Author.find({});
     res.render('author/new.ejs', {
         authors: allAuthors,
+        currentUser: req.session.currentUser,
     })
   })
 
@@ -17,8 +18,8 @@ router.get('/new', async (req, res) =>{
 router.post('/', async (req, res) =>{
     console.log(req.body);
      let author = await Author.create(req.body)
-     //res.redirect(`/authors`)
-     res.send(author);
+     res.redirect("/books")
+     
  })
 
   module.exports = router;

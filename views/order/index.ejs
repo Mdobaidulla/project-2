@@ -1,0 +1,17 @@
+<h1>All the Drders</h1>
+<table class="table">
+    <tr class="d-flex">
+        <th class="col-sm-5">Order Number</th>
+        <th class="col-sm-5">Order Date</th>
+    </tr>
+<% orders.forEach(order => { %>
+  <tr class="d-flex">
+  <td class="col-sm-5">
+    <%= order.id %>
+  </td> 
+  <td class="col-sm-5">
+    <%= order.createdAt %>
+  </td> 
+</tr>
+<% }) %>
+</table>
