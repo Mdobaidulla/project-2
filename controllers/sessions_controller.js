@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
         res.send('<a href="/"> password does not match </a>')
       }
     }else{
-      res.send('<a href="/"> your account is not Active yet,<br> check your email and complete the email verification </a>')
+      res.send('<a href="/users/verify"> your account is not Active yet,<br> check your email and complete the email verification </a>')
     }
     }
   })

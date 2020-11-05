@@ -60,8 +60,10 @@ router.post('/', (req, res) => {
         secure: true,
         auth: {
             // should be replaced with real sender's account
-            user: 'mitulsunny8',
-            pass: '7416Mitul'
+            //user: 'mitulsunny8',
+            user: process.env.GMAIL_SMTP_USER,
+            //pass: '7416Mitul'
+            pass: process.env.GMAIL_SMTP_PASSWORD
         }
     });
     
