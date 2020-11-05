@@ -33,6 +33,8 @@ router.post('/', (req, res) => {
     } else {
       // user is found yay!
       // now let's check if passwords match
+      console.log("The is active "+foundUser.isActive);
+      if(foundUser.isActive){
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         // add the user to our session
         req.session.currentUser = foundUser
@@ -42,6 +44,9 @@ router.post('/', (req, res) => {
         // passwords do not match
         res.send('<a href="/"> password does not match </a>')
       }
+    }else{
+      res.send('<a href="/"> your account is not Active yet,<br> check your email and complete the email verification </a>')
+    }
     }
   })
 })
