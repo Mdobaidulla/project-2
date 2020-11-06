@@ -110,34 +110,24 @@ router.post('/', (req, res) => {
 
 //PUT for sending a new security code for reset password
 router.put('/reset', async (req, res) =>{
+try{
   let securityCode= Math.floor(100000 + Math.random() * 900000);
   let oneUser = await User.findOne({username:req.body.username});
    if(oneUser){
-    req.body.username=oneUser.username;
-    req.body.password=oneUser.password;
-    req.body.name=oneUser.name;
-    req.body.isActive=true;
-    req.body.security=securityCode;
-await User.updateOne(req.body, (error, updated) =>{
-   if(error){
-     console.log(error);
-   }else{
-     console.log(updated);
-   }
+await User.updateOne({username:req.body.username}, {isActive: true, security: securityCode}, (error, updated) =>{
+  if(error){
+    console.log(error);
+  }else{
+    console.log(updated);
+  }
 })
-
-
-
    //adding this for sending email
    let transporter = nodeMailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-        // should be replaced with real sender's account
-        //user: 'mitulsunny8',
         user: process.env.GMAIL_SMTP_USER,
-        //pass: '7416Mitul'
         pass: process.env.GMAIL_SMTP_PASSWORD
     }
 });
@@ -154,34 +144,36 @@ transporter.sendMail(mailOptions, (error, info) => {
         res.end(error)
     }else{
     console.log('Message %s sent: %s', info.messageId, info.response);
-    res.end("<a href='/users/resetpassword' >Enter security code to reset your password</a>");
+    res.end("<a href='/users/resetpassword' >An email with security code is sent to your email, Enter security code to reset your password</a>");
 
     }
 });
    }else{
      res.send("<a href='/users/reset'>'User does not exist'</a>")
    }
+  }catch(error){
+    res.send("There is an erorr in your reset password email, The email does not exist!!!")
+  }
 })
 
 //PUT for resetting password and adding new password in the database
 router.put('/resetpassword', async (req, res) =>{
   let securityCode= Math.floor(100000 + Math.random() * 900000);
   let oneUser = await User.findOne({username:req.body.username});
-  console.log("Password", req.body.password);
   if(oneUser){
-   req.body.username=oneUser.username;
-   req.body.password=bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-   console.log(req.body.password);
-   req.body.name=oneUser.name;
-   req.body.isActive=true;
-   req.body.security=securityCode;
-await User.updateOne(req.body, (error, updated) =>{
-  if(error){
-    console.log(error);
-  }else{
-    res.redirect("/sessions/new")
-  }
-})
+   await User.updateOne(
+     {
+       username:req.body.username
+    }, {
+     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
+    }, (error, updated) =>{
+    if(error){
+      console.log(error);
+    }else{
+      res.redirect("/sessions/new")
+      console.log(updated);
+    }
+  })
   }else{
     console.log('Something went wrong!!!');
   }
