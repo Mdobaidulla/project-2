@@ -38,15 +38,11 @@ router.get('/verify', async (req, res) =>{
 })
 //Complete the user registration 
 router.put('/verify', async (req, res) =>{
+  try{
    let oneUser = await User.findOne({username:req.body.username, security:req.body.security});
    let randomNumber=Math.floor(100000 + Math.random() * 900000)
    if(oneUser){
-         req.body.username=oneUser.username;
-         req.body.password=oneUser.password;
-         req.body.name=oneUser.name;
-         req.body.isActive=true;
-         req.body.security=randomNumber;
-     await User.updateOne(req.body, (error, updated) =>{
+     await User.updateOne({username:req.body.username}, {isActive: true, security: randomNumber}, (error, updated) =>{
         if(error){
           console.log(error);
         }else{
@@ -54,8 +50,12 @@ router.put('/verify', async (req, res) =>{
         }
      })
    }else{
-     console.log("You have invalid info");
+     
+    res.send("<a href='/users/reset'>Invalid username or security code</a>")
    }
+  }catch(error){
+      console.log("Error from users/verify"+ error);
+  }
   res.redirect('/sessions/new')
 })
 //POST for creating a new account
