@@ -156,17 +156,23 @@ router.post('/',upload.single('image'), async (req, res) =>{
  //PUT
  //This route will Allow user to update the author list
  router.put('/:bookId', async (req, res) => {
-         await Book.updateOne(
-             {id:req.params.bookId},
-            {
-                authors:req.body.authors,
-                image: req.body.image,
-                title: req.body.title
-            }
-            
-            )
-    res.redirect(`/books/${req.params.bookId}`);
-  });
+     let book =await Book.findByIdAndUpdate({_id:req.params.bookId},
+        {
+            authors : req.body.authors,
+            title : req.body.title
+
+        },
+        (error, updated)=>{
+         if(error){
+             console.log(error);
+         }else{
+             console.log(updated);
+         }
+     })
+     res.redirect(`/books/${req.params.bookId}`);
+   });
+
+
 
 //DELETE
 router.delete('/:id', async (req, res) =>{

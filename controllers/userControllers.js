@@ -165,13 +165,14 @@ router.put('/resetpassword', async (req, res) =>{
      {
        username:req.body.username
     }, {
-     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
+     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
+     security:securityCode
     }, (error, updated) =>{
     if(error){
       console.log(error);
     }else{
       res.redirect("/sessions/new")
-      console.log(updated);
+      console.log("Updating for password : "+updated);
     }
   })
   }else{
