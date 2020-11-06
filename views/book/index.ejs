@@ -23,7 +23,7 @@
     <div class="row">
 <% books.forEach(book => { %>
 
-        <!-- Does the user is logged in -->
+        
         <% if (currentUser) { %>
                  
                     <% if (currentUser._id == book.userid) { %>
@@ -43,12 +43,13 @@
                             <input type="hidden" name="price" id="price" value="<%=book.price%>">
                           <button class="bnt bg-dark text-white col-sm-10 p-1">Add to cart</button>
                         </form>
+
                         </div>
                     </div>
                 <% } %>
        <% }else{ %>
         
-           <div class="col-md-3 mt-3 mt-sm-3 card-container  my-box">
+           <div class="col-md-3 mt-3 mt-sm-3 card-container my-box">
     
               <div class="card text-center product p-2 pt-4 border-0 h-100 rounded-0">
               
